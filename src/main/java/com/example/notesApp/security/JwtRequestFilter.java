@@ -1,6 +1,6 @@
-package com.example.notesApp.config;
+package com.example.notesApp.security;
 
-import com.example.notesApp.model.User;
+import com.example.notesApp.model.AppUser;
 import com.example.notesApp.services.UserService;
 import com.example.notesApp.util.JwtUtil;
 import jakarta.servlet.FilterChain;
@@ -46,10 +46,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         // Authenticate user if not already authenticated
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            Optional<User> optionalUser = userService.findByUsername(username);
+            Optional<AppUser> optionalUser = userService.findByUsername(username);
 
             if (optionalUser.isPresent()) {
-                User user = optionalUser.get();
+                AppUser user = optionalUser.get();
 
                 // Convert your User to Spring Security UserDetails
                 UserDetails userDetails = org.springframework.security.core.userdetails.User

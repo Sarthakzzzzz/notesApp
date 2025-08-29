@@ -1,6 +1,6 @@
 package com.example.notesApp.services;
 
-import com.example.notesApp.model.User;
+import com.example.notesApp.model.AppUser;
 import com.example.notesApp.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,16 +18,17 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public Optional<User> findByUsername(String username) {
-        return userRepository.findByUsername(Optional.of(username));
+    public Optional<AppUser> findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
-    public User save(User user) {
+    public AppUser save(AppUser user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
-    public User registerUser(String username, String password, String email) {
-        User user = new User();
+
+    public AppUser registerUser(String username, String password, String email) {
+        AppUser user = new AppUser();
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode(password));
         user.setEmail(email);

@@ -1,6 +1,6 @@
 package com.example.notesApp.controller;
 
-import com.example.notesApp.model.User;
+import com.example.notesApp.model.AppUser;
 import com.example.notesApp.services.UserService;
 import com.example.notesApp.util.JwtUtil;
 import org.springframework.http.ResponseEntity;
@@ -25,20 +25,19 @@ public class AuthController {
 
    // new user 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody User user) {
-        User savedUser = userService.save(user);
+    public ResponseEntity<AppUser> register(@RequestBody AppUser user) {
+        AppUser savedUser = userService.save(user);
         savedUser.setPassword(null); // 
         return ResponseEntity.ok(savedUser);
     }
 
     // login with jwt token
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User user) {
-        Optional<User> optionalUser = userService.findByUsername(user.getUsername());
+    public ResponseEntity<?> login(@RequestBody AppUser user) {
+        Optional<AppUser> optionalUser = userService.findByUsername(user.getUsername());
         if (optionalUser.isEmpty())
             return ResponseEntity.status(401).body("Invalid username or password");
-
-        User existingUser = optionalUser.get();
+        AppUser existingUser = optionalUser.get();
         if (!passwordEncoder.matches(user.getPassword(), existingUser.getPassword())) {
             return ResponseEntity.status(401).body("Invalid username or password");
         }
