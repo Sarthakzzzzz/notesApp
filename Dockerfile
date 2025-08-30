@@ -7,6 +7,6 @@ COPY . .
 RUN chmod +x mvnw
 RUN ./mvnw clean package -DskipTests
 
-EXPOSE 8080
+EXPOSE $PORT
 
 CMD ["java", "-jar", "target/notesApp-0.0.1-SNAPSHOT.jar"]
