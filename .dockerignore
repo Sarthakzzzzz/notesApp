@@ -1,9 +1,5 @@
 target/
 .git/
-.gitignore
-README.md
-*.md
 frontend/
+*.md
 .env
-.env.example
-render.yaml
