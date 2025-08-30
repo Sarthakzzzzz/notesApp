@@ -15,7 +15,7 @@ import java.util.Date;
 @Component
 public class JwtUtil {
     private final String SECRET_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30";
-    private final long EXPIRATION_TIME = 1000 * 60 * 10; // 10 minutes
+    private final long EXPIRATION_TIME = 1000 * 60 * 60 * 24; // 24 hours
 
     // Generate a proper HMAC key
     protected SecretKey getSigningKey() {

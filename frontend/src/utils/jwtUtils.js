@@ -16,7 +16,18 @@ export const isTokenExpired = (token) => {
   try {
     const decoded = decodeJWT(token);
     if (!decoded || !decoded.exp) return true;
-    // Add 5 minute buffer to prevent edge cases
+    // Only check actual expiration, no buffer for normal operations
+    return Date.now() >= (decoded.exp * 1000);
+  } catch (error) {
+    return true;
+  }
+};
+
+export const isTokenNearExpiry = (token) => {
+  try {
+    const decoded = decodeJWT(token);
+    if (!decoded || !decoded.exp) return true;
+    // 5 minute buffer for proactive refresh
     return Date.now() >= (decoded.exp * 1000) - (5 * 60 * 1000);
   } catch (error) {
     return true;

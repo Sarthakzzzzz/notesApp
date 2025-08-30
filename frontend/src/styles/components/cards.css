@@ -245,6 +245,41 @@
   gap: var(--space-10);
 }
 
+/* Dashboard Welcome */
+.dashboard-welcome {
+  text-align: center;
+  padding: var(--space-12) var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+.welcome-icon {
+  font-size: 4rem;
+  margin-bottom: var(--space-4);
+}
+
+.welcome-title {
+  font-size: var(--text-4xl);
+  font-weight: 800;
+  margin-bottom: var(--space-4);
+  line-height: 1.2;
+}
+
+.welcome-subtitle {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-8);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .card-grid,
@@ -265,5 +300,18 @@
   .note-actions {
     flex-direction: column;
     gap: var(--space-2);
+  }
+  
+  .feature-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+  
+  .welcome-title {
+    font-size: var(--text-3xl);
+  }
+  
+  .welcome-subtitle {
+    font-size: var(--text-base);
   }
 }

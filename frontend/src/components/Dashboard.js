@@ -50,15 +50,15 @@ function Dashboard({ user, onCreateNote }) {
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '1rem' }}>
                 <div style={{ width: '2rem', height: '2rem', background: 'var(--primary-500)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold', fontSize: '0.875rem' }}>1</div>
                 <div>
-                  <h4 style={{ color: 'white', fontWeight: '600', marginBottom: '0.5rem' }}>Create Notes</h4>
-                  <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.875rem' }}>Click the "Create Note" button to add your first note</p>
+                  <h4 className="card-title" style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Create Notes</h4>
+                  <p className="card-content" style={{ fontSize: '0.875rem' }}>Click the "Create Note" button to add your first note</p>
                 </div>
               </div>
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
                 <div style={{ width: '2rem', height: '2rem', background: 'var(--primary-500)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold', fontSize: '0.875rem' }}>2</div>
                 <div>
-                  <h4 style={{ color: 'white', fontWeight: '600', marginBottom: '0.5rem' }}>Organize</h4>
-                  <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.875rem' }}>Use search and sort features to keep your notes organized</p>
+                  <h4 className="card-title" style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Organize</h4>
+                  <p className="card-content" style={{ fontSize: '0.875rem' }}>Use search and sort features to keep your notes organized</p>
                 </div>
               </div>
             </div>
@@ -66,15 +66,15 @@ function Dashboard({ user, onCreateNote }) {
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '1rem' }}>
                 <div style={{ width: '2rem', height: '2rem', background: 'var(--primary-500)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold', fontSize: '0.875rem' }}>3</div>
                 <div>
-                  <h4 style={{ color: 'white', fontWeight: '600', marginBottom: '0.5rem' }}>Edit & Update</h4>
-                  <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.875rem' }}>Click on any note to edit it instantly</p>
+                  <h4 className="card-title" style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Edit & Update</h4>
+                  <p className="card-content" style={{ fontSize: '0.875rem' }}>Click on any note to edit it instantly</p>
                 </div>
               </div>
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
                 <div style={{ width: '2rem', height: '2rem', background: 'var(--primary-500)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold', fontSize: '0.875rem' }}>4</div>
                 <div>
-                  <h4 style={{ color: 'white', fontWeight: '600', marginBottom: '0.5rem' }}>Stay Synced</h4>
-                  <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.875rem' }}>Your notes are automatically saved and synced</p>
+                  <h4 className="card-title" style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Stay Synced</h4>
+                  <p className="card-content" style={{ fontSize: '0.875rem' }}>Your notes are automatically saved and synced</p>
                 </div>
               </div>
             </div>

@@ -1,5 +1,5 @@
 import { authAPI, setToken } from './api';
-import { getUserFromToken, isTokenExpired } from '../utils/jwtUtils';
+import { getUserFromToken, isTokenExpired, isTokenNearExpiry } from '../utils/jwtUtils';
 
 class AuthService {
   constructor() {

@@ -20,7 +20,7 @@ public class AppUser {
     private String email;
     
     @Column(nullable = false)
-    private String role = "user";
+    private String role = "USER";
 
     public AppUser(){
 

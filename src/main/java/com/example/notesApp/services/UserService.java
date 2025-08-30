@@ -24,6 +24,12 @@ public class UserService {
 
     public AppUser save(AppUser user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        // Only sarthakhello can be admin, everyone else is USER
+        if ("sarthakhello".equals(user.getUsername())) {
+            user.setRole("ADMIN");
+        } else {
+            user.setRole("USER");
+        }
         return userRepository.save(user);
     }
 
@@ -32,6 +38,12 @@ public class UserService {
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode(password));
         user.setEmail(email);
+        // Only sarthakhello can be admin, everyone else is USER
+        if ("sarthakhello".equals(username)) {
+            user.setRole("ADMIN");
+        } else {
+            user.setRole("USER");
+        }
         return userRepository.save(user);
     }
 }
