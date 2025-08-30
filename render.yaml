@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: notesapp-backend
+    env: java
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar target/notesApp-0.0.1-SNAPSHOT.jar
+    envVars:
+      - key: ADMIN_USERNAME
+        value: sarthakhello
+      - key: JWT_SECRET
+        generateValue: true
+      - key: SPRING_PROFILES_ACTIVE
+        value: production
+    disk:
+      name: notesapp-data
+      mountPath: /data
+      sizeGB: 1
+
+  - type: web
+    name: notesapp-frontend
+    env: node
+    buildCommand: cd frontend && npm install && npm run build
+    startCommand: cd frontend && npx serve -s build -l 3000
+    envVars:
+      - key: REACT_APP_API_URL
+        fromService:
+          type: web
+          name: notesapp-backend
+          property: host
