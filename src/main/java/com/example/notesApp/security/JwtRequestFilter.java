@@ -7,6 +7,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,13 +23,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     private final UserService userService;
     private final JwtUtil jwtUtil;
-
     public JwtRequestFilter(UserService userService, JwtUtil jwtUtil) {
         this.userService = userService;
         this.jwtUtil = jwtUtil;
     }
 
     @Override
+
     protected void doFilterInternal(HttpServletRequest request,
             HttpServletResponse response,
             FilterChain filterChain)
@@ -44,14 +45,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             username = jwtUtil.extractUsername(token);
         }
 
-        // Authenticate user if not already authenticated
+
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             Optional<AppUser> optionalUser = userService.findByUsername(username);
 
             if (optionalUser.isPresent()) {
                 AppUser user = optionalUser.get();
 
-                // Convert your User to Spring Security UserDetails
                 UserDetails userDetails = org.springframework.security.core.userdetails.User
                         .withUsername(user.getUsername())
                         .password(user.getPassword())
@@ -66,7 +66,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 }
             }
         }
-
         filterChain.doFilter(request, response);
     }
 }

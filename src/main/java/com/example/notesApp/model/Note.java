@@ -1,6 +1,10 @@
 package com.example.notesApp.model;
+
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 public class Note {
@@ -8,7 +12,7 @@ public class Note {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id",nullable = false)
+    @Column(name = "user_id", nullable = false)
     private Long userId;
 
     @Column(nullable = false)
@@ -17,23 +21,26 @@ public class Note {
     @Column(nullable = false)
     private String title;
 
-    @Column (nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     String content;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     // Constructor
     public Note() {
 
-    } 
-    public Note(Long userId, String username, String title, String content,String email) {
+    }
+
+    public Note(Long userId, String username, String title, String content, String email) {
         this.userId = userId;
         this.username = username;
         this.title = title;
@@ -42,27 +49,67 @@ public class Note {
     }
 
     // get and set
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public Long getUserId() { return userId; }
-    public void setUserId(Long userId) { this.userId = userId; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public Long getUserId() {
+        return userId;
+    }
 
-    public String getUsername() { return username; }
-    public void setUsername(String username) { this.username = username; }
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }  
+    public String getEmail() {
+        return email;
+    }
 
-    public String getContent() { return content; }
-    public void setContent(String content) { this.content = content; }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public String getUsername() {
+        return username;
+    }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 }

@@ -87,7 +87,7 @@ class AuthControllerTest {
 
                 ResponseEntity<?> response = authController.login(loginRequest);
 
-                assertEquals(HttpStatus.OK, response.getStatusCode());
+                assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
                 assertEquals("Invalid username or password", response.getBody());
         }
 }

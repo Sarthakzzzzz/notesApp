@@ -6,11 +6,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.example.notesApp.security.JwtRequestFilter;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SecurityConfigTest {
 
-    private final SecurityConfig securityConfig = new SecurityConfig();
+    private final SecurityConfig securityConfig;
+
+    public SecurityConfigTest() {
+        this.securityConfig = new SecurityConfig(Mockito.mock(JwtRequestFilter.class));
+    }
 
     @Test
     void testPasswordEncoderBean() {

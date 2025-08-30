@@ -27,13 +27,16 @@ public class UserController {
     // GET/me -> get profile
     @GetMapping
     public ResponseEntity<AppUser> getProfile(@RequestHeader("X-User-Id") Long userId) {
-        return userRepository.findById(getCurrentUserId(userId)).map(user -> ResponseEntity.ok(user))
-                .orElse(ResponseEntity.notFound().build());
+        return userRepository.findById(getCurrentUserId(userId)).map(user -> {
+            user.setPassword(null); // Hide password response
+            return ResponseEntity.ok(user);
+        }).orElse(ResponseEntity.notFound().build());
     }
 
     // GET/me -> update profile
     @PutMapping
-    public ResponseEntity<AppUser> updateProfile(@RequestHeader("X-User-Id") Long userId, @RequestBody AppUser updatedUser) {
+    public ResponseEntity<AppUser> updateProfile(@RequestHeader("X-User-Id") Long userId,
+            @RequestBody AppUser updatedUser) {
         Optional<AppUser> optionalUser = userRepository.findById(getCurrentUserId(userId));
         if (optionalUser.isEmpty())
             return ResponseEntity.notFound().build();
@@ -44,6 +47,7 @@ public class UserController {
             user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
         }
         userRepository.save(user);
+        user.setPassword(null); // Hide password response
         return ResponseEntity.ok(user);
     }
 

@@ -1,5 +1,6 @@
 package com.example.notesApp.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,6 @@ public class NoteController {
         this.noterepository = noterepository;
     }
 
-    // GET /api/notes?userId={userId} -> List all notes or by user
     @GetMapping
     public ResponseEntity<List<Note>> getNotesByUserId(@RequestParam(required = false) Long userId) {
         List<Note> notes;
@@ -34,6 +34,9 @@ public class NoteController {
     // POST /api/notes -> create new note
     @PostMapping
     public ResponseEntity<Note> createNote(@RequestBody Note note) {
+        LocalDateTime now = LocalDateTime.now();
+        note.setCreatedAt(now);
+        note.setUpdatedAt(now);
         Note createdNote = noterepository.save(note);
         return new ResponseEntity<>(createdNote, HttpStatus.CREATED);
     }

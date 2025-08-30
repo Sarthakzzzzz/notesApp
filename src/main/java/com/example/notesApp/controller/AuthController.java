@@ -23,11 +23,11 @@ public class AuthController {
         this.jwtUtil = jwtUtil;
     }
 
-   // new user 
+    // new user
     @PostMapping("/register")
     public ResponseEntity<AppUser> register(@RequestBody AppUser user) {
         AppUser savedUser = userService.save(user);
-        savedUser.setPassword(null); // 
+        savedUser.setPassword(null); //
         return ResponseEntity.ok(savedUser);
     }
 
