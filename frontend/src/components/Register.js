@@ -1,61 +1,107 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+import authService from "../services/authService";
+
 function Register() {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
-    role: "",
     email: "",
+    role: "USER"
   });
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
-      const response = await axios.post("/auth/register", formData);
-      setMessage(response.data.message);
+      await authService.register(formData);
+      setMessage("Registration successful! You can now login.");
+      setFormData({ username: "", password: "", role: "USER", email: "" });
     } catch (error) {
-      setMessage("Registration Failed");
+      setMessage(error.message);
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
+      {message && (
+        <div className={`form-message ${
+          message.includes('successful') 
+            ? 'form-message-success' 
+            : 'form-message-error'
+        }`}>
+          {message}
+        </div>
+      )}
+      
+      <div className="form-group">
+        <label className="form-label">Username</label>
         <input
           type="text"
           name="username"
-          placeholder="Username"
+          className="form-control"
           value={formData.username}
           onChange={handleChange}
+          required
         />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        <select name="role" value={formData.role} onChange={handleChange}>
-          <option value="USER">User</option>
-          <option value="ADMIN">Admin</option>
-        </select>
+      </div>
+      
+      <div className="form-group">
+        <label className="form-label">Email</label>
         <input
           type="email"
           name="email"
-          placeholder="Email"
+          className="form-control"
           value={formData.email}
           onChange={handleChange}
+          required
         />
-        <button type="submit">Register</button>
-      </form>
-      {message && <p>{message}</p>}
-    </div>
+      </div>
+      
+      <div className="form-group">
+        <label className="form-label">Password</label>
+        <input
+          type="password"
+          name="password"
+          className="form-control"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      
+      <div className="form-group">
+        <label className="form-label">Role</label>
+        <select
+          name="role"
+          className="form-control"
+          value={formData.role}
+          onChange={handleChange}
+        >
+          <option value="USER">User</option>
+          <option value="ADMIN">Admin</option>
+        </select>
+      </div>
+      
+      <button 
+        type="submit" 
+        className={`btn btn-success w-full ${loading ? 'btn-loading' : ''}`}
+        disabled={loading}
+      >
+        {loading ? "Creating Account..." : "Create Account"}
+      </button>
+    </form>
   );
 }
+
 export default Register;

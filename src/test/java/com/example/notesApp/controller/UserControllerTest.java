@@ -9,6 +9,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Optional;
 
@@ -23,6 +24,9 @@ class UserControllerTest {
     @Mock
     private PasswordEncoder passwordEncoder;
 
+    @Mock
+    private HttpServletRequest request;
+
     @InjectMocks
     private UserController userController;
 
@@ -36,9 +40,10 @@ class UserControllerTest {
         user.setId(1L);
         user.setUsername("john");
 
+        when(request.getAttribute("userId")).thenReturn(1L);
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
-        ResponseEntity<AppUser> response = userController.getProfile(1L);
+        ResponseEntity<AppUser> response = userController.getProfile(request);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("john", response.getBody().getUsername());
@@ -46,9 +51,10 @@ class UserControllerTest {
 
     @Test
     void testGetProfileNotFound() {
+        when(request.getAttribute("userId")).thenReturn(1L);
         when(userRepository.findById(1L)).thenReturn(Optional.empty());
 
-        ResponseEntity<AppUser> response = userController.getProfile(1L);
+        ResponseEntity<AppUser> response = userController.getProfile(request);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
@@ -63,15 +69,16 @@ class UserControllerTest {
         updatedUser.setUsername("new");
         updatedUser.setPassword("123");
 
+        when(request.getAttribute("userId")).thenReturn(1L);
         when(userRepository.findById(1L)).thenReturn(Optional.of(existingUser));
         when(passwordEncoder.encode("123")).thenReturn("encodedPass");
         when(userRepository.save(any(AppUser.class))).thenReturn(existingUser);
 
-        ResponseEntity<AppUser> response = userController.updateProfile(1L, updatedUser);
+        ResponseEntity<AppUser> response = userController.updateProfile(request, updatedUser);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("new", response.getBody().getUsername());
-        assertEquals("encodedPass", response.getBody().getPassword());
+        assertNull(response.getBody().getPassword());
     }
 
     @Test
@@ -79,19 +86,21 @@ class UserControllerTest {
         AppUser updatedUser = new AppUser();
         updatedUser.setUsername("new");
 
+        when(request.getAttribute("userId")).thenReturn(1L);
         when(userRepository.findById(1L)).thenReturn(Optional.empty());
 
-        ResponseEntity<AppUser> response = userController.updateProfile(1L, updatedUser);
+        ResponseEntity<AppUser> response = userController.updateProfile(request, updatedUser);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
     @Test
     void testDeleteProfileSuccess() {
+        when(request.getAttribute("userId")).thenReturn(1L);
         when(userRepository.existsById(1L)).thenReturn(true);
         doNothing().when(userRepository).deleteById(1L);
 
-        ResponseEntity<Void> response = userController.deleteProfile(1L);
+        ResponseEntity<Void> response = userController.deleteProfile(request);
 
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
         verify(userRepository, times(1)).deleteById(1L);
@@ -99,9 +108,10 @@ class UserControllerTest {
 
     @Test
     void testDeleteProfileNotFound() {
+        when(request.getAttribute("userId")).thenReturn(1L);
         when(userRepository.existsById(1L)).thenReturn(false);
 
-        ResponseEntity<Void> response = userController.deleteProfile(1L);
+        ResponseEntity<Void> response = userController.deleteProfile(request);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }

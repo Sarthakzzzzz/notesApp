@@ -40,10 +40,12 @@ public class SecurityConfig {
                     return configuration;
                 }))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/api/notes/**").permitAll()
-                        .requestMatchers("/me/**").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN"))
+                        .requestMatchers("/auth/**", "/h2-console/**").permitAll()
+                        .requestMatchers("/api/notes/**").authenticated()
+                        .requestMatchers("/me/all").authenticated()
+                        .requestMatchers("/me/**").authenticated()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .anyRequest().authenticated())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 

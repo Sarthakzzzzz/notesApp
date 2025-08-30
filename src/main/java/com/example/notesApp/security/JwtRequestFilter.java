@@ -55,10 +55,16 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 UserDetails userDetails = org.springframework.security.core.userdetails.User
                         .withUsername(user.getUsername())
                         .password(user.getPassword())
-                        .roles(user.getRole()) // e.g., "USER" or "ADMIN"
+                        .authorities("ROLE_" + user.getRole()) // Add ROLE_ prefix
                         .build();
 
                 if (jwtUtil.validateToken(token, userDetails)) {
+                    // Set user ID in request for UserController
+                    request.setAttribute("userId", user.getId());
+                    
+                    System.out.println("User role: " + user.getRole());
+                    System.out.println("Authorities: " + userDetails.getAuthorities());
+                    
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,
                             null, userDetails.getAuthorities());
                     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
