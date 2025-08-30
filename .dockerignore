@@ -1,5 +1,0 @@
-target/
-.git/
-frontend/
-*.md
-.env

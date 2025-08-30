@@ -1,9 +1,9 @@
 services:
   - type: web
     name: notesapp-backend
-    runtime: docker
-    dockerfilePath: Dockerfile
-    dockerContext: .
+    runtime: java
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar target/notesApp-0.0.1-SNAPSHOT.jar
     envVars:
       - key: ADMIN_USERNAME
         value: sarthakhello
