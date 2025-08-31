@@ -1,0 +1,16 @@
+{
+  "extends": ["react-app", "react-app/jest"],
+  "rules": {
+    "jsx-a11y/anchor-is-valid": "off",
+    "no-unused-vars": "warn",
+    "react-hooks/exhaustive-deps": "warn"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.js", "**/*.jsx"],
+      "rules": {
+        "react/jsx-no-literals": "off"
+      }
+    }
+  ]
+}
