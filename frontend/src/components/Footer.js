@@ -22,7 +22,7 @@ function Footer() {
           <span>⚡ Lightning Fast</span>
         </div>
         <p style={{ fontSize: '0.9rem', opacity: 0.7 }}>
-          © 2024 NotesApp. Built with Spring Boot & React. Made with ❤️
+          © 2025 NotesApp. Built with Spring Boot & React. Made with ❤️
         </p>
       </div>
     </footer>
