@@ -46,6 +46,7 @@ public class SecurityConfig {
                         .requestMatchers("/me/all").authenticated()
                         .requestMatchers("/me/**").authenticated()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/debug/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
