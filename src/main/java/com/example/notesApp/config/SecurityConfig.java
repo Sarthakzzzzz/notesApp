@@ -35,12 +35,13 @@ public class SecurityConfig {
                     CorsConfiguration configuration = new CorsConfiguration();
                     configuration.setAllowCredentials(true);
                     configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+                    configuration.setAllowedOriginPatterns(Arrays.asList("https://*.onrender.com", "https://notesapp-frontend*.onrender.com"));
                     configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
                     configuration.setAllowedHeaders(Arrays.asList("*"));
                     return configuration;
                 }))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/h2-console/**").permitAll()
+                        .requestMatchers("/", "/health", "/healthz", "/auth/**", "/h2-console/**").permitAll()
                         .requestMatchers("/api/notes/**").authenticated()
                         .requestMatchers("/me/all").authenticated()
                         .requestMatchers("/me/**").authenticated()

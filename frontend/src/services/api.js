@@ -6,7 +6,11 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: false,
 });
+
+// Log the API URL for debugging
+console.log('API Base URL:', process.env.REACT_APP_API_URL || "http://localhost:8080");
 
 // Request interceptor to check token expiration
 api.interceptors.request.use(
