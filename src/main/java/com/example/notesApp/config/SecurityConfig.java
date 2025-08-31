@@ -35,7 +35,8 @@ public class SecurityConfig {
                     CorsConfiguration configuration = new CorsConfiguration();
                     configuration.setAllowCredentials(true);
                     configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
-                    configuration.setAllowedOriginPatterns(Arrays.asList("https://*.onrender.com", "https://notesapp-frontend*.onrender.com"));
+                    configuration.setAllowedOriginPatterns(
+                            Arrays.asList("https://*.onrender.com", "https://notesapp-frontend*.onrender.com"));
                     configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
                     configuration.setAllowedHeaders(Arrays.asList("*"));
                     return configuration;
@@ -46,7 +47,7 @@ public class SecurityConfig {
                         .requestMatchers("/me/all").authenticated()
                         .requestMatchers("/me/**").authenticated()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/debug/**").permitAll()
+                        .requestMatchers("/debug/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
