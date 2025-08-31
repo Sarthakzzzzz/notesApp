@@ -147,7 +147,7 @@ function Home({ onNavigate }) {
               <span className="brand-name">NotesApp</span>
             </div>
             <p className="footer-text">
-              © 2024 NotesApp. Built with React & Spring Boot.
+              © 2025 NotesApp. Built with React & Spring Boot.
             </p>
           </div>
         </div>
