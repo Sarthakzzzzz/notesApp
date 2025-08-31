@@ -42,7 +42,8 @@ public class SecurityConfig {
                     return configuration;
                 }))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/health", "/healthz", "/auth/**", "/h2-console/**").permitAll()
+                        .requestMatchers("/", "/health", "/healthz", "/auth/**").permitAll()
+                        .requestMatchers("/h2-console/**").hasRole("ADMIN")
                         .requestMatchers("/api/notes/**").authenticated()
                         .requestMatchers("/me/all").authenticated()
                         .requestMatchers("/me/**").authenticated()
@@ -50,7 +51,8 @@ public class SecurityConfig {
                         .requestMatchers("/debug/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .headers(headers -> headers.frameOptions().sameOrigin());
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
