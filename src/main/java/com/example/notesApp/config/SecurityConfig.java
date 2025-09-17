@@ -37,8 +37,9 @@ public class SecurityConfig {
                     configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
                     configuration.setAllowedOriginPatterns(
                             Arrays.asList("https://*.onrender.com", "https://notesapp-frontend*.onrender.com"));
-                    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+                    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                     configuration.setAllowedHeaders(Arrays.asList("*"));
+                    configuration.setExposedHeaders(Arrays.asList("*"));
                     return configuration;
                 }))
                 .authorizeHttpRequests(auth -> auth
@@ -53,7 +54,6 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .headers(headers -> headers.frameOptions().sameOrigin());
-
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
