@@ -4,7 +4,7 @@ A full-stack notes application with Spring Boot backend and React frontend.
 
 ## Deployment
   ### Frontend   https://notesapp-frontend-r7qt.onrender.com
-  ### Backend    https://dashboard.render.com/web/srv-d2pvo5ndiees73ce508g
+  ### Backend    
 ## Features
 
 - User authentication with JWT
