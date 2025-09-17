@@ -42,7 +42,8 @@ function SystemStatus({ user }) {
 
     // Check Backend Connection
     try {
-      const response = await fetch("http://localhost:8080/health", {
+      const baseUrl = process.env.REACT_APP_API_URL || "http://localhost:8080";
+      const response = await fetch(`${baseUrl}/health`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
